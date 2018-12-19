@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<title>Calculator</title>
+<body>
+  <div class="container">
+    <div class="output"></div>
+    <button class="clear" onclick="clear_output()">clear</button>
+    <button class="one" onclick="display(this)">1</button>
+    <button class="two" onclick="display(this)">2</button>
+    <button class="three" onclick="display(this)">3</button>
+    <button class="add" onclick="operate(this)" value="add">+</button>
+    <button class="four" onclick="display(this)">4</button>
+    <button class="five" onclick="display(this)">5</button>
+    <button class="six" onclick="display(this)">6</button>
+    <button class="subtract" onclick="operate(this)" value="subtract">-</button>
+    <button class="seven" onclick="display(this)">7</button>
+    <button class="eight" onclick="display(this)">8</button>
+    <button class="nine" onclick="display(this)">9</button>
+    <button class="multiply" onclick="operate(this)" value="multiply">*</button>
+    <button class="zero" onclick="display(this)">0</button>
+    <button class="dot" onclick="display(this)">.</button>
+    <button class="equals" onclick="equals()">=</button>
+    <button class="divide" onclick="operate(this)" value="divide">/</button>
+  </div>
+</body>
+
+<script>
+  var display_num = ""
+  var main_buttons = document.querySelectorAll("button");
+  for (let i = 0; i < main_buttons.length; i++) {
+    main_buttons[i].classList.add("button");
+  };
+
+  function add(num1,num2) {
+    return num1 + num2;
+  }
+
+  function subtract(num1,num2) {
+    return num1 - num2;
+  }
+
+  function multiply(num1,num2) {
+    return num1*num2;
+  }
+
+  function divide(num1,num2) {
+    return num1/num2;
+  }
+
+  function operate(objButton) {
+    button = objButton;
+    number_1 = Number(document.querySelector(".output").textContent); //store current display number as variable
+    document.querySelector(".output").textContent = button.textContent; //show operator in display
+    func_name = button.value; //store function
+    button.style.opacity = .5;
+    button.style.background = 'green';
+    clear_output();
+  }
+
+  function equals() {
+    var func = window[func_name];
+    number_2 = Number(document.querySelector(".output").textContent);
+    document.querySelector('.output').textContent = Math.round(func(number_1,number_2) * 1000) / 1000;
+    button.style.opacity = 1;
+    button.style.background = '#525252';
+  }
+
+  function display(objButton) {
+    if(document.querySelector(".output").textContent.includes(".") && objButton.textContent == "."){
+      return;
+    }
+    if (display_num.length < 5) {
+        display_num += objButton.textContent;
+        document.querySelector(".output").textContent = display_num;
+    }
+  }
+
+  function clear_output() {
+    display_num = "";
+    document.querySelector(".output").textContent = display_num;
+  }
+
+</script>
+</html>
