@@ -30,7 +30,8 @@
 </body>
 
 <script>
-  var display_num = ""
+  var display_num = "";
+  var output = document.querySelector(".output");
   var main_buttons = document.querySelectorAll("button");
   for (let i = 0; i < main_buttons.length; i++) {
     main_buttons[i].classList.add("button");
@@ -54,8 +55,8 @@
 
   function operate(objButton) {
     button = objButton;
-    number_1 = Number(document.querySelector(".output").textContent); //store current display number as variable
-    document.querySelector(".output").textContent = button.textContent; //show operator in display
+    number_1 = Number(output.textContent); //store current display number as variable
+    output.textContent = button.textContent; //show operator in display
     func_name = button.value; //store function
     button.style.opacity = .5;
     button.style.background = 'green';
@@ -64,25 +65,25 @@
 
   function equals() {
     var func = window[func_name];
-    number_2 = Number(document.querySelector(".output").textContent);
-    document.querySelector('.output').textContent = Math.round(func(number_1,number_2) * 1000) / 1000;
+    number_2 = Number(output.textContent);
+    output.textContent = Math.round(func(number_1,number_2) * 1000) / 1000;
     button.style.opacity = 1;
     button.style.background = '#525252';
   }
 
   function display(objButton) {
-    if(document.querySelector(".output").textContent.includes(".") && objButton.textContent == "."){
+    if(output.textContent.includes(".") && objButton.textContent == "."){
       return;
     }
     if (display_num.length < 5) {
         display_num += objButton.textContent;
-        document.querySelector(".output").textContent = display_num;
+        output.textContent = display_num;
     }
   }
 
   function clear_output() {
     display_num = "";
-    document.querySelector(".output").textContent = display_num;
+    output.textContent = display_num;
   }
 
 </script>
